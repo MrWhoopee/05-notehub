@@ -1,4 +1,4 @@
-import type { Note } from "../types/note";
+import type { Note, CreateNoteParams } from "../types/note";
 import { api } from "./api";
 import type { NoteTag } from "../types/note";
 
@@ -24,7 +24,7 @@ export async function fetchNotes(
   return response.data;
 }
 
-export async function createNote(note: Note): Promise<Note> {
+export async function createNote(note: CreateNoteParams): Promise<Note> {
   const response = await api.post<Note>("/notes", note);
   return response.data;
 }

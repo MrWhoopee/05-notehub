@@ -2,7 +2,11 @@ import css from "./NoteList.module.css";
 import type { Note } from "../../types/note";
 import { useDeleteNote } from "../../hooks/useNotes";
 
-export default function NoteList({ notes }: { notes: Note[] }) {
+interface NoteListProps {
+  notes: Note[];
+}
+
+export default function NoteList({ notes }: NoteListProps) {
   const mutation = useDeleteNote();
 
   const handleDelete = (id: string) => {

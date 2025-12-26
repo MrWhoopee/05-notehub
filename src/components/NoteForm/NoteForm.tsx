@@ -1,8 +1,8 @@
 import css from "./NoteForm.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import type { Note } from "../../types/note";
 import { useCreateNote } from "../../hooks/useNotes";
+import type { CreateNoteParams } from "../../types/note";
 
 const initialValues = {
   title: "",
@@ -16,7 +16,6 @@ const validationSchema = Yup.object().shape({
     .min(3, "Title must be at least 3 characters long")
     .max(50, "Title must be at most 50 characters long"),
   content: Yup.string()
-    .required("Content is required")
     .min(3, "Content must be at least 3 characters long")
     .max(500, "Content must be at most 500 characters long"),
   tag: Yup.string()
@@ -32,7 +31,7 @@ export default function NoteForm({ onClose }: FormProps) {
   const mutation = useCreateNote();
 
   const handleSubmit = (values: typeof initialValues) => {
-    mutation.mutate(values as Note, {
+    mutation.mutate(values as CreateNoteParams, {
       onSuccess: () => {
         onClose();
       },
@@ -80,7 +79,7 @@ export default function NoteForm({ onClose }: FormProps) {
         </div>
 
         <div className={css.actions}>
-          <button type="button" className={css.cancelButton}>
+          <button type="button" className={css.cancelButton} onClick={onClose}>
             Cancel
           </button>
           <button type="submit" className={css.submitButton} disabled={false}>
